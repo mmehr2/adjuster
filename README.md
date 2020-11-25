@@ -11,6 +11,6 @@ Plan:
 1. Get to GREEN!
 1. Ideas for refactoring...let them appear!
 
-MILESTONE: C++ running
-MILESTONE: AC# running
-MILESTONE: AC# tests running
+- MILESTONE: C++ running
+- MILESTONE: AC# running
+- MILESTONE: AC# tests running
