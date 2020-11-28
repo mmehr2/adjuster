@@ -21,7 +21,7 @@ namespace adjuster {
         public abstract void SetCurrent(double value);
     };
 
-    class ISensorControlMock : ISensorControl {
+    class SensorControlMock : ISensorControl {
         //
         double data;
 
