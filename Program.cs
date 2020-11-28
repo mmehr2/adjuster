@@ -12,17 +12,22 @@ namespace adjuster
         }
         static int Main(string[] args)
         {
-            double target = 100.0;
-            double tolerance = 0.1;
             Console.WriteLine("Test run of luminance adjustment using SensorControl mockup");
-            if (args.Length < 2) {
+            if (args.Length == 0) {
                 usage();
                 return 0;
             }
-            // input two doubles from args[1:2]
-            Console.WriteLine($"Target: {target} at Tolerance: {tolerance}");
             try
             {
+                // input two doubles from args[1:2]
+                double target = 100.0;
+                double tolerance = 0.1;
+                target = Double.Parse(args[0]);
+                if (args.Length > 1)
+                {
+                    tolerance = Double.Parse(args[1]);
+                }
+                Console.WriteLine($"Target: {target} at Tolerance: {tolerance}");
                 ISensorControl m = new SensorControlMock();
                 IAdjuster a = new Adjuster(m);
                 a.SetLuminance(target, tolerance);
