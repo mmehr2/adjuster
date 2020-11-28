@@ -14,3 +14,7 @@ Plan:
 - MILESTONE: C++ running
 - MILESTONE: AC# running
 - MILESTONE: AC# tests running
+
+Usage: adjuster TARGET [TOLERANCE]  
+  where TARGET is luminance value 0.0-256.0  
+  and optional TOLERANCE is in luminance units as well
