@@ -16,15 +16,20 @@ namespace adjuster
 
             double MIN_LUMINANCE = 0.0;
             double MAX_LUMINANCE = 256.0;
+            if (value < GetMinCurrent() || value > GetMaxCurrent())
+            {
+                throw new System.ArgumentException($"Current ({value} mA) is out of range", "value");
+            }
+
 
             // set value of luminance as function of input current
-            input = value; // in amps
+            input = value; // in milliamps
             double delta = input - GetMinCurrent(); // 1:1 xfer function converts to units of 1/256 of full-scale range
             double range = GetMaxCurrent() - GetMinCurrent();
             double out_range = MAX_LUMINANCE - MIN_LUMINANCE;
             data = out_range * delta / range + MIN_LUMINANCE;
             //std::cout << "Set current to " << input << " mA gives output luminance of " << data << std::endl;
-            Console.WriteLine($"Set current to {input} mA gives output luminance of {data}");
+            Console.WriteLine($"Setting current to {input} mA gives output luminance of {data}");
         }
     };
 

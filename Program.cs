@@ -33,9 +33,9 @@ namespace adjuster
                 a.SetLuminance(target, tolerance);
                 return 0;
             }
-            catch
+            catch (System.Exception e)
             {
-                // output the exception here
+                System.Console.WriteLine(e.Message);
                 return 1;
             }
         }
