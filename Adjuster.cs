@@ -14,28 +14,18 @@ inject ISensorControl
 using System;
 
 namespace adjuster {
-    abstract class ISensorControl {
+    public abstract class ISensorControl {
         public abstract double GetMinCurrent();
         public abstract double GetMaxCurrent();
         public abstract double GetLuminance();
         public abstract void SetCurrent(double value);
     };
 
-    class SensorControlMock : ISensorControl {
-        //
-        double data;
-
-        public override double GetMinCurrent() { return 0.0; }
-        public override double GetMaxCurrent() { return 255.0; }
-        public override double GetLuminance() { return data; }
-        public override void SetCurrent(double value) { data = value; }
-    };
-
-    abstract class IAdjuster {
+    public abstract class IAdjuster {
         public abstract double SetLuminance(double value, double tolerance);
     };
 
-    class Adjuster : IAdjuster {
+    public class Adjuster : IAdjuster {
         ISensorControl sc;
         double BSearchLum(double low, double hi, double target, double tolerance) {
             double avg = (low + hi) / 2.0; // need to use double divisor
