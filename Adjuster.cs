@@ -14,17 +14,6 @@ inject ISensorControl
 using System;
 
 namespace adjuster {
-    public interface ISensorControl {
-        double GetMinCurrent();
-        double GetMaxCurrent();
-        double GetLuminance();
-        void SetCurrent(double value);
-    };
-
-    public interface IAdjuster {
-        double SetLuminance(double value, double tolerance);
-    };
-
     public class Adjuster : IAdjuster {
         ISensorControl sc;
         double BSearchLum(double low, double hi, double target, double tolerance) {
