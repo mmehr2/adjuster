@@ -9,10 +9,10 @@ namespace adjuster
         double data;
         double input;
 
-        public override double GetMinCurrent() { return 0.0; }
-        public override double GetMaxCurrent() { return 255.0; }
-        public override double GetLuminance() { return data; }
-        public override void SetCurrent(double value) {
+        public double GetMinCurrent() { return 0.0; }
+        public double GetMaxCurrent() { return 255.0; }
+        public double GetLuminance() { return data; }
+        public void SetCurrent(double value) {
 
             double MIN_LUMINANCE = 0.0;
             double MAX_LUMINANCE = 256.0;

@@ -14,15 +14,15 @@ inject ISensorControl
 using System;
 
 namespace adjuster {
-    public abstract class ISensorControl {
-        public abstract double GetMinCurrent();
-        public abstract double GetMaxCurrent();
-        public abstract double GetLuminance();
-        public abstract void SetCurrent(double value);
+    public interface ISensorControl {
+        double GetMinCurrent();
+        double GetMaxCurrent();
+        double GetLuminance();
+        void SetCurrent(double value);
     };
 
-    public abstract class IAdjuster {
-        public abstract double SetLuminance(double value, double tolerance);
+    public interface IAdjuster {
+        double SetLuminance(double value, double tolerance);
     };
 
     public class Adjuster : IAdjuster {
@@ -44,7 +44,7 @@ namespace adjuster {
         public Adjuster(ISensorControl sc_) {
             sc = sc_;
         }
-        public override double SetLuminance(double target, double tolerance) {
+        public double SetLuminance(double target, double tolerance) {
             // use sc to set current values and zero in on proper luminance
 
             return BSearchLum(sc.GetMinCurrent(), sc.GetMaxCurrent(), target, tolerance);
