@@ -14,7 +14,7 @@ inject ISensorControl
 using System;
 
 namespace adjuster {
-    public class Adjuster : IAdjuster {
+    public class BinarySearchingAdjuster : IAdjuster {
         ISensorControl sc;
         double BSearchLum(double low, double hi, double target, double tolerance) {
             double avg = (low + hi) / 2.0; // need to use double divisor
@@ -30,7 +30,7 @@ namespace adjuster {
                 return BSearchLum(avg, hi, target, tolerance);
         }
 
-        public Adjuster(ISensorControl sc_) {
+        public BinarySearchingAdjuster(ISensorControl sc_) {
             sc = sc_;
         }
         public double SetLuminance(double target, double tolerance) {

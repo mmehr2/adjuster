@@ -29,7 +29,7 @@ namespace adjuster
                 }
                 Console.WriteLine($"Target: {target} at Tolerance: {tolerance}");
                 ISensorControl m = new SensorControlMock();
-                IAdjuster a = new Adjuster(m);
+                IAdjuster a = new BinarySearchingAdjuster(m);
                 a.SetLuminance(target, tolerance);
                 return 0;
             }
