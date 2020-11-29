@@ -3,7 +3,7 @@
 namespace adjuster
 {
 
-    class SensorControlMock : ISensorControl
+    public class SensorControlMock : ISensorControl
     {
         //
         double data;
