@@ -12,7 +12,8 @@ namespace adjuster
         public double GetMinCurrent() { return 0.0; }
         public double GetMaxCurrent() { return 255.0; }
         public double GetMinLuminance() { return 0.0; }
-        public double GetMaxLuminance() { return 256.0; }
+        public double GetMaxLuminance() { return 1000.0; }
+        public double GetCurrent() { return input; }
         public double GetLuminance() { return data; }
         public void SetCurrent(double value) {
 
