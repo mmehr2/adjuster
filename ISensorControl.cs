@@ -4,8 +4,8 @@
     {
         double GetMinCurrent();
         double GetMaxCurrent();
-        //double GetMinLuminance();
-        //double GetMaxLuminance();
+        double GetMinLuminance();
+        double GetMaxLuminance();
         double GetLuminance();
         void SetCurrent(double value);
     };

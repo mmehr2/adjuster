@@ -17,6 +17,14 @@ namespace adjuster {
     public class BinarySearchingAdjuster : IAdjuster {
         ISensorControl sc;
         double BSearchLum(double low, double hi, double target, double tolerance) {
+            if (target > sc.GetMaxLuminance() || target < sc.GetMinLuminance())
+            {
+                throw new System.ArgumentException($"Target luminance {target} out of range {sc.GetMinLuminance()}:{sc.GetMaxLuminance()}", "target");
+            }
+            if (tolerance <= 0.0)
+            {
+                throw new System.ArgumentException($"Target tolerance {tolerance} must be positive", "tolerance");
+            }
             double avg = (low + hi) / 2.0; // need to use double divisor
             sc.SetCurrent(avg);
             double lum = sc.GetLuminance();
