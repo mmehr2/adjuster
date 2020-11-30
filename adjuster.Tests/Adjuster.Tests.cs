@@ -25,6 +25,14 @@ namespace adjuster.Tests
             Assert.IsTrue(System.Math.Abs(diff) < TOLERANCE);
         }
 
+        public void testIfTargetThrowsException(double TARGET, double TOLERANCE)
+        {
+            Assert.Throws<System.ArgumentException>(
+            () => {
+                bsa.SetLuminance(TARGET, TOLERANCE);
+            });
+        }
+
         [Test]
         public void test_SetAvgLuminanceTarget_TestIfFinalLumIsInTolerance()
         {
@@ -50,12 +58,19 @@ namespace adjuster.Tests
         }
 
         [Test]
-        public void test_ToleranceZero_throwsException()
+        public void test_ToleranceZero_ThrowsException()
         {
             double TOLERANCE = 0.0;
             double TARGET = avgLuminance;
-            //bsa.SetLuminance(TARGET, TOLERANCE);
-            //Assert.Catch();
+            testIfTargetThrowsException(TARGET, TOLERANCE);
+        }
+
+        [Test]
+        public void test_ToleranceNegative_ThrowsException()
+        {
+            double TOLERANCE = -2.0;
+            double TARGET = avgLuminance;
+            testIfTargetThrowsException(TARGET, TOLERANCE);
         }
     }
 
