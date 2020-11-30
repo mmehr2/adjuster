@@ -16,7 +16,7 @@ Plan:
 - MILESTONE: AC# tests running (ACHIEVED)
 
 Usage: adjuster TARGET [TOLERANCE]  
-where TARGET is luminance value 0.0-256.0  
+where TARGET is luminance value 0.0-1000.0  
 and optional TOLERANCE is in luminance units as well
 
 ### Typical output
