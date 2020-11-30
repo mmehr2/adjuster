@@ -8,6 +8,7 @@ namespace adjuster.Tests
         private BinarySearchingAdjuster bsa;
         private SensorControlMock ms;
         private double avgLuminance { get => (ms.GetMinLuminance() + ms.GetMaxLuminance())/2.0;  }
+        private double currentTolerance = 0.02;  // experimentally determined as between 0.01 and 0.02 for LUM range 0-1000
 
         //[SetUp]
         //public void Setup()
@@ -21,16 +22,22 @@ namespace adjuster.Tests
         private void testIfTargetIsInTolerance(double TARGET, double TOLERANCE)
         {
             bsa.SetLuminance(TARGET, TOLERANCE);
-            double diff = TARGET - bsa.Luminance;
-            Assert.IsTrue(System.Math.Abs(diff) < TOLERANCE);
+            Assert.That(bsa.Luminance, Is.EqualTo(TARGET).Within(TOLERANCE));
         }
 
-        public void testIfTargetThrowsException(double TARGET, double TOLERANCE)
+        private void testIfTargetThrowsException(double TARGET, double TOLERANCE)
         {
-            Assert.Throws<System.ArgumentException>(
+            Assert.That(
             () => {
                 bsa.SetLuminance(TARGET, TOLERANCE);
-            });
+            },
+            Throws.ArgumentException);
+        }
+
+        private void testIfTargetSetsCurrentInTolerance(double TARGET, double TOLERANCE, double CURRENT, double CUR_TOL)
+        {
+            bsa.SetLuminance(TARGET, TOLERANCE);
+            Assert.That(bsa.Current, Is.EqualTo(CURRENT).Within(CUR_TOL));
         }
 
         [Test]
@@ -55,6 +62,26 @@ namespace adjuster.Tests
             double TOLERANCE = 0.1;
             double TARGET = ms.GetMaxLuminance();
             testIfTargetIsInTolerance(TARGET, TOLERANCE);
+        }
+
+        [Test]
+        public void test_SetMinLuminanceTarget_TestIfFinalCurrentIsInTolerance()
+        {
+            double TOLERANCE = 0.1;
+            double TARGET = ms.GetMinLuminance();
+            double CURRENT = ms.GetMinCurrent();
+            double CUR_TOL = currentTolerance;
+            testIfTargetSetsCurrentInTolerance(TARGET, TOLERANCE, CURRENT, CUR_TOL);
+        }
+
+        [Test]
+        public void test_SetMaxLuminanceTarget_TestIfFinalCurrentIsInTolerance()
+        {
+            double TOLERANCE = 0.1;
+            double TARGET = ms.GetMaxLuminance();
+            double CURRENT = ms.GetMaxCurrent();
+            double CUR_TOL = currentTolerance;
+            testIfTargetSetsCurrentInTolerance(TARGET, TOLERANCE, CURRENT, CUR_TOL);
         }
 
         [Test]
