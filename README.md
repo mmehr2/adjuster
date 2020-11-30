@@ -11,9 +11,9 @@ Plan:
 1. Get to GREEN!
 1. Ideas for refactoring...let them appear!
 
-- MILESTONE: C++ running
-- MILESTONE: AC# running
-- MILESTONE: AC# tests running
+- MILESTONE: C++ running (ACHIEVED)
+- MILESTONE: AC# running (ACHIEVED)
+- MILESTONE: AC# tests running (ACHIEVED)
 
 Usage: adjuster TARGET [TOLERANCE]  
 where TARGET is luminance value 0.0-256.0  
