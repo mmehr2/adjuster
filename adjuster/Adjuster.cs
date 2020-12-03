@@ -23,18 +23,18 @@ namespace adjuster {
         public double Current { get; private set; }
         public double Luminance { get; private set; }
         double BSearchLum(double low, double hi, double target, double tolerance) {
-            if (target > sc.GetMaxLuminance() || target < sc.GetMinLuminance())
+            if (target > sc.MaxLuminance || target < sc.MinLuminance)
             {
-                throw new System.ArgumentException($"Target luminance {target} out of range {sc.GetMinLuminance()}:{sc.GetMaxLuminance()}", "target");
+                throw new ArgumentException($"Target luminance {target} out of range {sc.MinLuminance}:{sc.MaxLuminance}", "target");
             }
             if (tolerance <= 0.0)
             {
-                throw new System.ArgumentException($"Target tolerance {tolerance} must be positive", "tolerance");
+                throw new ArgumentException($"Target tolerance {tolerance} must be positive", "tolerance");
             }
             double avg = (low + hi) / 2.0; // need to use double divisor
             Steps += 1;
-            sc.SetCurrent(avg);
-            double lum = sc.GetLuminance();
+            sc.Current = (avg);
+            double lum = sc.Luminance;
 
             if (Math.Abs(lum - target) < tolerance) {
                 return lum;
@@ -56,10 +56,10 @@ namespace adjuster {
             Steps = 0;
             Target = target;
             Tolerance = tolerance;
-            Luminance = BSearchLum(sc.GetMinCurrent(), sc.GetMaxCurrent(), target, tolerance);
-            Current = sc.GetCurrent();
+            Luminance = BSearchLum(sc.MinCurrent, sc.MaxCurrent, target, tolerance);
+            Current = sc.Current;
             double diff = Luminance - Target;
-            System.Console.WriteLine($"Final: current {Current} gives luminance {Luminance} in {Steps} steps, a difference of {diff} from target {Target} at tolerance level {Tolerance}");
+            Console.WriteLine($"Final: current {Current} gives luminance {Luminance} in {Steps} steps, a difference of {diff} from target {Target} at tolerance level {Tolerance}");
             return Luminance;
         }
     };

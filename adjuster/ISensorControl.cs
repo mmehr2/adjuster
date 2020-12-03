@@ -3,14 +3,14 @@
     public interface ISensorControl
     {
         // input
-        double GetMinCurrent();
-        double GetMaxCurrent();
-        double GetCurrent();
-        void SetCurrent(double value);
+        double MinCurrent { get; }
+        double MaxCurrent { get; }
+        double Current { get; set;  }
 
         //output
-        double GetMinLuminance();
-        double GetMaxLuminance();
-        double GetLuminance();
+        double MinLuminance { get; }
+        double MaxLuminance { get; }
+        public double Luminance { get; }
+        
     };
 }
