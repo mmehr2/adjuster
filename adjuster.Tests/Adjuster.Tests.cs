@@ -5,9 +5,9 @@ namespace adjuster.Tests
 {
     public class Adjuster_Tests
     {
-        private BinarySearchingAdjuster bsa;
-        private SensorControlMock ms;
-        private double avgLuminance { get => (ms.GetMinLuminance() + ms.GetMaxLuminance())/2.0;  }
+        private IAdjuster bsa;
+        private ISensorControl ms;
+        private double avgLuminance { get => (ms.MinLuminance + ms.MaxLuminance) / 2.0; }
         private double currentTolerance = 0.02;  // experimentally determined as between 0.01 and 0.02 for LUM range 0-1000
 
         //[SetUp]
@@ -22,7 +22,7 @@ namespace adjuster.Tests
         private void testIfTargetIsInTolerance(double TARGET, double TOLERANCE)
         {
             bsa.SetLuminance(TARGET, TOLERANCE);
-            Assert.That(bsa.Luminance, Is.EqualTo(TARGET).Within(TOLERANCE));
+            Assert.That(ms.Luminance, Is.EqualTo(TARGET).Within(TOLERANCE));
         }
 
         private void testIfTargetThrowsException(double TARGET, double TOLERANCE)
@@ -37,7 +37,7 @@ namespace adjuster.Tests
         private void testIfTargetSetsCurrentInTolerance(double TARGET, double TOLERANCE, double CURRENT, double CUR_TOL)
         {
             bsa.SetLuminance(TARGET, TOLERANCE);
-            Assert.That(bsa.Current, Is.EqualTo(CURRENT).Within(CUR_TOL));
+            Assert.That(ms.Current, Is.EqualTo(CURRENT).Within(CUR_TOL));
         }
 
         [Test]
@@ -45,14 +45,14 @@ namespace adjuster.Tests
         {
             double TOLERANCE = 0.1;
             double TARGET = avgLuminance;
-            testIfTargetIsInTolerance(TARGET,  TOLERANCE);
+            testIfTargetIsInTolerance(TARGET, TOLERANCE);
         }
 
         [Test]
         public void test_SetMinLuminanceTarget_TestIfFinalLumIsInTolerance()
         {
             double TOLERANCE = 0.1;
-            double TARGET = ms.GetMinLuminance();
+            double TARGET = ms.MinLuminance;
             testIfTargetIsInTolerance(TARGET, TOLERANCE);
         }
 
@@ -60,7 +60,7 @@ namespace adjuster.Tests
         public void test_SetMaxLuminanceTarget_TestIfFinalLumIsInTolerance()
         {
             double TOLERANCE = 0.1;
-            double TARGET = ms.GetMaxLuminance();
+            double TARGET = ms.MaxLuminance;
             testIfTargetIsInTolerance(TARGET, TOLERANCE);
         }
 
@@ -68,8 +68,8 @@ namespace adjuster.Tests
         public void test_SetMinLuminanceTarget_TestIfFinalCurrentIsInTolerance()
         {
             double TOLERANCE = 0.1;
-            double TARGET = ms.GetMinLuminance();
-            double CURRENT = ms.GetMinCurrent();
+            double TARGET = ms.MinLuminance;
+            double CURRENT = ms.MinCurrent;
             double CUR_TOL = currentTolerance;
             testIfTargetSetsCurrentInTolerance(TARGET, TOLERANCE, CURRENT, CUR_TOL);
         }
@@ -78,8 +78,8 @@ namespace adjuster.Tests
         public void test_SetMaxLuminanceTarget_TestIfFinalCurrentIsInTolerance()
         {
             double TOLERANCE = 0.1;
-            double TARGET = ms.GetMaxLuminance();
-            double CURRENT = ms.GetMaxCurrent();
+            double TARGET = ms.MaxLuminance;
+            double CURRENT = ms.MaxCurrent;
             double CUR_TOL = currentTolerance;
             testIfTargetSetsCurrentInTolerance(TARGET, TOLERANCE, CURRENT, CUR_TOL);
         }
@@ -101,4 +101,4 @@ namespace adjuster.Tests
         }
     }
 
-}
+}

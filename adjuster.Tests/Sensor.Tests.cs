@@ -6,7 +6,7 @@ namespace adjuster.Tests
     public class Sensor_Tests
     {
         //private BinarySearchingAdjuster bsa;
-        private SensorControlMock ms;
+        private ISensorControl ms;
 
         //[SetUp]
         //public void Setup()
@@ -21,32 +21,32 @@ namespace adjuster.Tests
         public void Test_SetCurrent0_GetCurrentIsZero()
         {
             double TEST_CURRENT = 0.0;
-            ms.SetCurrent(TEST_CURRENT);
-            Assert.AreEqual(ms.GetCurrent(), TEST_CURRENT);
+            ms.Current = (TEST_CURRENT);
+            Assert.AreEqual(ms.Current, TEST_CURRENT);
         }
 
         [Test]
         public void Test_SetMinCurrent_GetCurrentIsEqual()
         {
-            double TEST_CURRENT = ms.GetMinCurrent();
-            ms.SetCurrent(TEST_CURRENT);
-            Assert.AreEqual(ms.GetCurrent(), TEST_CURRENT);
+            double TEST_CURRENT = ms.MinCurrent;
+            ms.Current = (TEST_CURRENT);
+            Assert.AreEqual(ms.Current, TEST_CURRENT);
         }
 
         [Test]
         public void Test_SetMaxCurrent_GetCurrentIsEqual()
         {
-            double TEST_CURRENT = ms.GetMaxCurrent();
-            ms.SetCurrent(TEST_CURRENT);
-            Assert.AreEqual(ms.GetCurrent(), TEST_CURRENT);
+            double TEST_CURRENT = ms.MaxCurrent;
+            ms.Current = (TEST_CURRENT);
+            Assert.AreEqual(ms.Current, TEST_CURRENT);
         }
 
         [Test]
         public void Test_SetAvgCurrent_GetCurrentIsEqual()
         {
-            double TEST_CURRENT = (ms.GetMaxCurrent() + ms.GetMinCurrent()) / 2.0;
-            ms.SetCurrent(TEST_CURRENT);
-            Assert.AreEqual(ms.GetCurrent(), TEST_CURRENT);
+            double TEST_CURRENT = (ms.MaxCurrent + ms.MinCurrent) / 2.0;
+            ms.Current = (TEST_CURRENT);
+            Assert.AreEqual(ms.Current, TEST_CURRENT);
         }
     }
 
